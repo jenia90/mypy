@@ -151,6 +151,14 @@ def check_follow_imports(choice: str) -> str:
         )
     return choice
 
+def check_follow_imports_depth(depth: str) -> int:
+    if depth:
+        return int(depth)
+    
+    return None
+
+
+
 
 def split_commas(value: str) -> list[str]:
     # Uses a bit smarter technique to allow last trailing comma
@@ -174,6 +182,7 @@ ini_config_types: Final[dict[str, _INI_PARSER_CALLABLE]] = {
     "quickstart_file": expand_path,
     "junit_xml": expand_path,
     "follow_imports": check_follow_imports,
+    "follow_imports_depth": check_follow_imports_depth,
     "no_site_packages": bool,
     "plugins": lambda s: [p.strip() for p in split_commas(s)],
     "always_true": lambda s: [p.strip() for p in split_commas(s)],
@@ -201,6 +210,7 @@ toml_config_types.update(
         "mypy_path": lambda s: [expand_path(p) for p in try_split(s, "[,:]")],
         "files": lambda s: split_and_match_files_list(try_split(s)),
         "follow_imports": lambda s: check_follow_imports(str(s)),
+        "follow_imports_depth": lambda s: check_follow_imports_depth(str(s)),
         "plugins": try_split,
         "always_true": try_split,
         "always_false": try_split,

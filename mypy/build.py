@@ -1913,8 +1913,12 @@ class State:
             self.import_context.append((caller_state.xpath, caller_line))
         else:
             self.import_context = []
+
         self.id = id or "__main__"
+        self.import_depth = self.count_import_depth()
         self.options = manager.options.clone_for_module(self.id)
+        if manager.options.follow_imports_depth and manager.options.follow_imports_depth <= self.import_depth:
+            self.options.follow_imports = "skip"
         self.early_errors = []
         self._type_checker = None
         if not path and source is None:
@@ -1999,6 +2003,12 @@ class State:
     def xmeta(self) -> CacheMeta:
         assert self.meta, "missing meta on allegedly fresh module"
         return self.meta
+    
+    def count_import_depth(self) -> int:
+        if self.caller_state:
+            return self.caller_state.import_depth + 1
+        else:
+            return 0
 
     def add_ancestors(self) -> None:
         if self.path is not None:
