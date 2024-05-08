@@ -57,6 +57,7 @@ from mypy.util import (
     DecodeError,
     decode_python_encoding,
     get_mypy_comments,
+    get_top_two_prefixes,
     hash_digest,
     is_stub_package_file,
     is_sub_path,
