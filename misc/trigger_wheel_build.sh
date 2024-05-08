@@ -6,6 +6,7 @@
 # $WHEELS_PUSH_TOKEN is stored in Github Settings and is an API token
 # for the mypy-build-bot account.
 
+
 git config --global user.email "nobody"
 git config --global user.name "mypy wheels autopush"
 
