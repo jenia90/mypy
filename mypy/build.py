@@ -1924,7 +1924,7 @@ class State:
         self.id = id or "__main__"
         self.import_depth = self.count_import_depth()
         self.options = manager.options.clone_for_module(self.id)
-        if manager.options.follow_imports_depth and manager.options.follow_imports_depth <= self.import_depth:
+        if manager.options.follow_imports_depth != -1 and manager.options.follow_imports_depth <= self.import_depth:
             self.options.follow_imports = "skip"
         self.early_errors = []
         self._type_checker = None

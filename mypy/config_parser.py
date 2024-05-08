@@ -136,6 +136,13 @@ def check_follow_imports(choice: str) -> str:
         )
     return choice
 
+def check_follow_imports_depths(choice: str) -> int:
+    if choice:
+        return int(choice)
+
+    else:
+        return -1
+
 
 def split_commas(value: str) -> list[str]:
     # Uses a bit smarter technique to allow last trailing comma
@@ -159,7 +166,7 @@ ini_config_types: Final[dict[str, _INI_PARSER_CALLABLE]] = {
     "quickstart_file": expand_path,
     "junit_xml": expand_path,
     "follow_imports": check_follow_imports,
-    "follow_imports_depth": lambda val: int(val) if val else None,
+    "follow_imports_depth": check_follow_imports_depths,
     "no_site_packages": bool,
     "plugins": lambda s: [p.strip() for p in split_commas(s)],
     "always_true": lambda s: [p.strip() for p in split_commas(s)],
