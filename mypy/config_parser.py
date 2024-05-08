@@ -159,6 +159,7 @@ ini_config_types: Final[dict[str, _INI_PARSER_CALLABLE]] = {
     "quickstart_file": expand_path,
     "junit_xml": expand_path,
     "follow_imports": check_follow_imports,
+    "follow_imports_depth": lambda val: int(val) if val else None,
     "no_site_packages": bool,
     "plugins": lambda s: [p.strip() for p in split_commas(s)],
     "always_true": lambda s: [p.strip() for p in split_commas(s)],
